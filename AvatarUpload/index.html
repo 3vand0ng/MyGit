@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>AvatarUpload</title>
+	<meta name="description" content="" />
+	
+	<script src="js/swfobject.js"></script>
+	<script>
+		var flashvars = {
+			js_handler:"jsCallback",
+			swfID:"avatarEdit",
+			sourceAvatar:'images/Test_Img.jpg',
+			avatarLabel:"您的头像会生成两种尺寸,请注意小尺寸头像是否清晰",
+			sourceLabel:"保存原图",
+			sourcePicAPI:"upload.php?type=source",
+			avatarAPI:"upload.php?type=thumb",
+			avatarSize:"180,180|50,50",
+			avatarSizeLabel:"大尺寸头像|小尺寸头像"
+		};
+		var params = {
+			menu: "false",
+			scale: "noScale",
+			allowFullscreen: "true",
+			allowScriptAccess: "always",
+			bgcolor: "",
+			wmode: "direct"
+		};
+		var attributes = {
+			id:"AvatarUpload"
+		};
+		swfobject.embedSWF(
+			"AvatarUpload.swf", 
+			"altContent", "100%", "100%", "10.0.0", 
+			"expressInstall.swf", 
+			flashvars, params, attributes);
+			
+		function jsCallback(obj){
+			if(obj.type == "sourcePicSuccess") console.log("原图上传成功");
+			if(obj.type == "sourcePicError") console.log("原图上传失败");
+			switch (obj.type){
+				case "avatarSuccess": {
+					alert("头像上传成功");
+					location.href = location.href;
+				}
+				break;
+				case "avatarError": {
+					alert("头像上传失败");
+					location.href = location.href;
+				}
+				break;
+				case "cancel": {
+					location.href = location.href;
+				}
+				break;
+			}
+		}
+	</script>
+	<style>
+		html, body { height:100%;}
+		body { margin:0; }
+	</style>
+</head>
+<body>
+	<div style="width:750px;height:550px;margin:40px auto 0; padding:10px;border:solid 1px #EFEFEF;">
+		<div id="altContent">
+			<h1>AvatarUpload</h1>
+			<p><a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a></p>
+		</div>
+	</div>
+</body>
+</html>
